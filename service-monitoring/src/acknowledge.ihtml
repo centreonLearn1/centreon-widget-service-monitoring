@@ -1,7 +1,9 @@
 <form id='Form'>
         <table class="table">
             <tr>
-               <td colspan="2" class="FormHeader"><h3 style="color: #00bfb3;">{$titleLabel}</h3></td>
+               <td colspan="2" class="FormHeader">
+                   <h3 style="color: #00bfb3;">{$titleLabel}</h3>
+               </td>
             </tr>
             <tr>
                 <td class="FormRowField">{$stickyLabel}</td>

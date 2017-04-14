@@ -300,7 +300,7 @@ function sendCmd()
 		fieldResult = false;
 	}
 	if (fieldResult == false) {
-		jQuery("#result").html("<font color=red><b>Please fill all mandatory fields.</b></font>");
+		jQuery("#result").html("<i class='red'><b>Please fill all mandatory fields.</b></i>");
 		return false;
 	}
 	jQuery.ajax({
