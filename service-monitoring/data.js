@@ -56,6 +56,5 @@ function ResizeFrame(ifrm, height) {
     if (height < 150) {
         height = 150;
     }
-    console.log(jQuery('[name="' + ifrm + '"]'));
     jQuery(window.parent.document).find('[name="' + ifrm + '"]').height(height);
 }
