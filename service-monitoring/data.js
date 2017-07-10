@@ -12,7 +12,7 @@ function loadPage()
             jQuery("#serviceMonitoringTable").empty().append(htmlData);
             var hostMonitoringTable = jQuery("#serviceMonitoringTable").find("img, style, script, link").load(function () {
                 var h = document.getElementById("serviceMonitoringTable").scrollHeight + 50;
-                ResizeFrame(window.name, h);
+                parent.iResize(window.name, h);
             });
         }
     });
