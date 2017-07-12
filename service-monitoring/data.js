@@ -51,10 +51,3 @@ jQuery(function () {
         clickedCb[$(this).attr('id')] = this.checked;
     });
 });
-
-function ResizeFrame(ifrm, height) {
-    if (height < 150) {
-        height = 150;
-    }
-    jQuery(window.parent.document).find('[name="' + ifrm + '"]').height(height);
-}
