@@ -146,8 +146,10 @@ $query = "SELECT SQL_CALC_FOUND_ROWS h.host_id,
 		cv.value AS criticality_level
 ";
 $query .= " FROM hosts h, services s ";
-$query .= " LEFT JOIN customvariables cv ON (s.service_id = cv.service_id AND s.host_id = cv.host_id AND cv.name = 'CRITICALITY_LEVEL') ";
-$query .= " LEFT JOIN customvariables cv2 ON (s.service_id = cv2.service_id AND s.host_id = cv2.host_id AND cv2.name = 'CRITICALITY_ID') ";
+$query .= " LEFT JOIN customvariables cv" .
+          " ON (s.service_id = cv.service_id AND s.host_id = cv.host_id AND cv.name = 'CRITICALITY_LEVEL') ";
+$query .= " LEFT JOIN customvariables cv2" .
+          " ON (s.service_id = cv2.service_id AND s.host_id = cv2.host_id AND cv2.name = 'CRITICALITY_ID') ";
 if (!$centreon->user->admin) {
     $query .= " , centreon_acl acl ";
 }
@@ -161,7 +163,9 @@ if (isset($preferences['host_name_search']) && $preferences['host_name_search'] 
         $search = $tab[1];
     }
     if ($op && isset($search) && $search != "") {
-        $query = CentreonUtils::conditionBuilder($query, "h.name ".CentreonUtils::operandToMysqlFormat($op)." '".$dbb->escape($search)."' ");
+        $query = CentreonUtils::conditionBuilder(
+            $query,
+            "h.name ".CentreonUtils::operandToMysqlFormat($op)." '".$dbb->escape($search)."' ");
     }
 }
 if (isset($preferences['service_description_search']) && $preferences['service_description_search'] != "") {
@@ -171,7 +175,8 @@ if (isset($preferences['service_description_search']) && $preferences['service_d
         $search = $tab[1];
     }
     if ($op && isset($search) && $search != "") {
-        $query = CentreonUtils::conditionBuilder($query, "s.description ".CentreonUtils::operandToMysqlFormat($op)." '".$dbb->escape($search)."' ");
+        $query = CentreonUtils::conditionBuilder(
+            $query, "s.description ".CentreonUtils::operandToMysqlFormat($op)." '".$dbb->escape($search)."' ");
     }
 }
 $stateTab = array();
@@ -199,7 +204,8 @@ if (isset($preferences['acknowledgement_filter']) && $preferences['acknowledgeme
     if ($preferences['acknowledgement_filter'] == "ack") {
         $query = CentreonUtils::conditionBuilder($query, " s.acknowledged = 1");
     } elseif ($preferences['acknowledgement_filter'] == "nack") {
-        $query = CentreonUtils::conditionBuilder($query, " s.acknowledged = 0 AND h.acknowledged = 0 AND h.scheduled_downtime_depth = 0 ");
+        $query = CentreonUtils::conditionBuilder(
+            $query, " s.acknowledged = 0 AND h.acknowledged = 0 AND h.scheduled_downtime_depth = 0 ");
     }
 }
 
@@ -309,7 +315,11 @@ while ($row = $res->fetchRow()) {
     }
 
     if (isset($preferences['display_last_comment']) && $preferences['display_last_comment']) {
-        $res2 = $dbb->query('SELECT data FROM comments where host_id = ' . $row['host_id'] . ' AND service_id = ' . $row['service_id'] . ' ORDER BY entry_time DESC LIMIT 1');
+        $res2 = $dbb->query('SELECT data FROM comments where host_id = ' .
+                             $row['host_id'] .
+                            ' AND service_id = ' .
+                            $row['service_id'] .
+                            ' ORDER BY entry_time DESC LIMIT 1');
         if ($row2 = $res2->fetchRow()) {
             $data[$row['host_id']."_".$row['service_id']]['comment'] = substr($row2['data'], 0, $commentLength);
         } else {
