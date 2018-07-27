@@ -58,6 +58,8 @@ $db = $dependencyInjector['configuration_db'];
 $widgetObj = new CentreonWidget($centreon, $db);
 $preferences = $widgetObj->getWidgetPreferences($widgetId);
 
+//TODO
+$serverIsMaster = false;
 $admin = $centreon->user->admin;
 $canDoAction = false;
 if ($admin) {
@@ -79,11 +81,11 @@ if ($canDoAction || $centreon->user->access->checkAction("service_disacknowledge
 if ($canDoAction || $centreon->user->access->checkAction("service_schedule_downtime")) {
     $actions .= "<option value='74'>"._("Service: Set Downtime")."</option>";
 }
-if ($canDoAction || $centreon->user->access->checkAction("service_notifications")) {
+if ($serverIsMaster && ($canDoAction || $centreon->user->access->checkAction("service_notifications"))) {
     $actions .= "<option value='80'>"._("Service: Enable Notification")."</option>";
     $actions .= "<option value='81'>"._("Service: Disable Notification")."</option>";
 }
-if ($canDoAction || $centreon->user->access->checkAction("service_checks")) {
+if ($serverIsMaster && ($canDoAction || $centreon->user->access->checkAction("service_checks"))) {
     $actions .= "<option value='90'>"._("Service: Enable Check")."</option>";
     $actions .= "<option value='91'>"._("Service: Disable Check")."</option>";
 }
@@ -96,11 +98,11 @@ if ($canDoAction || $centreon->user->access->checkAction("host_disacknowledgemen
 if ($canDoAction || $centreon->user->access->checkAction("host_schedule_downtime")) {
     $actions .= "<option value='75'>"._("Host: Set Downtime")."</option>";
 }
-if ($canDoAction || $centreon->user->access->checkAction("host_notifications")) {
+if ($serverIsMaster && ($canDoAction || $centreon->user->access->checkAction("host_notifications"))) {
     $actions .= "<option value='82'>"._("Host: Enable Host Notification")."</option>";
     $actions .= "<option value='83'>"._("Host: Disable Host Notification")."</option>";
 }
-if ($canDoAction || $centreon->user->access->checkAction("host_checks")) {
+if ($serverIsMaster && ($canDoAction || $centreon->user->access->checkAction("host_checks"))) {
     $actions .= "<option value='92'>"._("Host: Enable Host Check")."</option>";
     $actions .= "<option value='93'>"._("Host: Disable Host Check")."</option>";
 }
