@@ -58,8 +58,9 @@ $db = $dependencyInjector['configuration_db'];
 $widgetObj = new CentreonWidget($centreon, $db);
 $preferences = $widgetObj->getWidgetPreferences($widgetId);
 
-//TODO
-$serverIsMaster = false;
+$informationsService = $dependencyInjector['centreon_remote.informations_service'];
+$serverIsMaster = $informationsService->serverIsMaster();
+
 $admin = $centreon->user->admin;
 $canDoAction = false;
 if ($admin) {

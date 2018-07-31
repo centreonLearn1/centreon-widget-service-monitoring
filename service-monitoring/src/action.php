@@ -45,8 +45,8 @@ require_once $centreon_path . 'www/class/centreonExternalCommand.class.php';
 
 session_start();
 
-//TODO
-$serverIsRemote = true;
+$informationsService = $dependencyInjector['centreon_remote.informations_service'];
+$serverIsRemote = $informationsService->serverIsRemote();
 $disabledCommandsForRemote = [80, 81, 82, 83, 90, 91, 92, 93];
 
 try {
