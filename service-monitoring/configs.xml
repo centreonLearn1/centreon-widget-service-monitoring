@@ -2,7 +2,7 @@
   <title>Service Monitoring</title>
   <author>Centreon</author>
   <email>contact@centreon.com</email>
-  <website>http://www.centreon.com</website>
+  <website>https://www.centreon.com</website>
   <description>Widget for displaying service monitoring information</description>
   <version>18.10.1</version>
   <keywords>centreon, widget, service, monitoring</keywords>
